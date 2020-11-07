@@ -1,25 +1,155 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { Button, ButtonGroup, Snackbar } from '@material-ui/core';
+// import { Button, ButtonGroup } from '@material-ui/core';
+import React from 'react';
 import './App.css';
+import arena from './images/backgrounds/arena.jpg';
+import canyon from './images/backgrounds/canyon.jpg';
+import cave from './images/backgrounds/cave.jpg';
+import city from './images/backgrounds/city.jpg';
+import coast from './images/backgrounds/coast.jpg';
+import forest from './images/backgrounds/forest.jpg';
+import glacier from './images/backgrounds/glacier.jpg';
+import volcano from './images/backgrounds/volcano.jpg';
+import locations from './static/locations';
+import MuiAlert from '@material-ui/lab/Alert';
+// import pokemons from './static/pokemons';
+import methods from './static/methods';
+import areas from './static/areas';
+import BattleDialog from './components/BattleDialog';
+import MenuSpeedDial from './components/MenuSpeedDial';
+import PartyDialog from './components/PartyDialog';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+const images = {
+  arena,
+  canyon,
+  cave,
+  city,
+  coast,
+  forest,
+  glacier,
+  volcano,
+};
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+// const backgroundImage = `url(${background})`;
+
+class App extends React.Component {
+  state = {
+    location: 'palletTown',
+  };
+
+  handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({ message: null });
+  };
+
+  render() {
+    const { location, found, message, partyDialog } = this.state;
+    // const { areas } = locations[location];
+
+    return (
+      <div
+        style={{
+          // alignItems: 'center',
+          backgroundImage: `url(${images[locations[location].background]})`,
+          backgroundSize: 'auto 100%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          // display: 'flex',
+          height: '100%',
+          // justifyContent: 'center',
+        }}
+      >
+        {partyDialog && (
+          <PartyDialog
+            handleClose={() => this.setState({ partyDialog: null })}
+          />
+        )}
+        <MenuSpeedDial
+          openPartyDialog={() => this.setState({ partyDialog: true })}
+        />
+        {found && (
+          <BattleDialog
+            message={(value) => this.setState({ message: value })}
+            pokemon={found.pokemon}
+            level={found.level}
+            handleClose={() => this.setState({ found: null })}
+          />
+        )}
+        {message && (
+          <Snackbar open autoHideDuration={2000} onClose={this.handleClose}>
+            <Alert onClose={this.handleClose} severity="success">
+              {message}
+            </Alert>
+          </Snackbar>
+        )}
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            justifyContent: 'space-evenly',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          {(locations[location].areas || []).map((area) => (
+            <ButtonGroup variant="contained">
+              {area.area && <Button>{areas[area.area]}</Button>}
+              {area.methods.map((method) => (
+                <Button
+                  onClick={() => {
+                    let random = Math.random();
+                    let message;
+
+                    method.spawns.some(({ level, pokemon, rate }) => {
+                      if (random < rate) {
+                        const [min, max] = level;
+
+                        message = {
+                          pokemon,
+                          level:
+                            min + Math.floor(random / (rate / (max - min + 1))),
+                        };
+                        // message = `Um ${pokemons[pokemon].name} Lv. ${
+                        //   min + Math.floor(random / (rate / (max - min + 1)))
+                        // } selvagem apareceu!`;
+
+                        return true;
+                      } else {
+                        random -= rate;
+                        return false;
+                      }
+                    });
+
+                    this.setState({ found: message });
+                  }}
+                  color="secondary"
+                >
+                  {methods[method.method]}
+                </Button>
+              ))}
+            </ButtonGroup>
+          ))}
+          <ButtonGroup variant="contained" color="primary">
+            {(locations[location].exits || []).map((exit) => (
+              <Button
+                onClick={() => {
+                  this.setState({ location: exit });
+                }}
+              >
+                {locations[exit].label}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
