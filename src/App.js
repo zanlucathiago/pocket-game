@@ -19,6 +19,7 @@ import areas from './static/areas';
 import BattleDialog from './components/BattleDialog';
 import MenuSpeedDial from './components/MenuSpeedDial';
 import PartyDialog from './components/PartyDialog';
+import BoxDialog from './components/BoxDialog';
 
 const images = {
   arena,
@@ -49,25 +50,27 @@ class App extends React.Component {
   };
 
   render() {
-    const { location, found, message, partyDialog } = this.state;
-    // const { areas } = locations[location];
+    const { boxDialog, location, found, message, partyDialog } = this.state;
 
     return (
       <div
         style={{
-          // alignItems: 'center',
           backgroundImage: `url(${images[locations[location].background]})`,
           backgroundSize: 'auto 100%',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          // display: 'flex',
           height: '100%',
-          // justifyContent: 'center',
         }}
       >
+        {boxDialog && (
+          <BoxDialog handleClose={() => this.setState({ boxDialog: null })} />
+        )}
         {partyDialog && (
           <PartyDialog
             handleClose={() => this.setState({ partyDialog: null })}
+            openBoxDialog={() =>
+              this.setState({ boxDialog: true, partyDialog: null })
+            }
           />
         )}
         <MenuSpeedDial

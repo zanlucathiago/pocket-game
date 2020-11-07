@@ -42,7 +42,7 @@ export default function PokemonCard({ pokemon }) {
           <Typography
             variant="overline"
             display="block"
-            gutterBottom
+            // gutterBottom
             style={{ position: 'absolute', bottom: 0 }}
           >
             {pokemons[pokemon].name}

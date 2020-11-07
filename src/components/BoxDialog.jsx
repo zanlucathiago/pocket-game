@@ -4,9 +4,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import PokemonCard from './PokemonCard';
-import { getParty } from '../helpers/LocalStorage';
+import { getBox, getParty } from '../helpers/LocalStorage';
 
-export default function PartyDialog({ handleClose, openBoxDialog }) {
+export default function BoxDialog({ handleClose, level, message, pokemon }) {
   return (
     <Dialog
       disableBackdropClick
@@ -15,38 +15,41 @@ export default function PartyDialog({ handleClose, openBoxDialog }) {
       onClose={handleClose}
       PaperProps={{
         elevation: 0,
-        style: { backgroundColor: 'transparent' },
+        // style: { backgroundColor: 'transparent' },
       }}
     >
       <DialogContent
         style={{
+          // display: 'flex',
+          // flexDirection: 'column',
+          // justifyContent: 'center',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'space-around',
+          flexWrap: 'wrap',
         }}
       >
-        <div
+        {/* <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            flexWrap: 'wrap',
+            // display: 'flex',
+            // justifyContent: 'space-around',
+            // flexWrap: 'wrap',
           }}
-        >
-          {getParty().map(({ pokemon, level }) => (
-            <PokemonCard pokemon={pokemon} level={level} />
-          ))}
-        </div>
+        > */}
+        {getBox().map(({ pokemon, level }) => (
+          <PokemonCard pokemon={pokemon} level={level} />
+        ))}
+        {/* </div> */}
       </DialogContent>
       <DialogActions
         style={{ display: 'flex', justifyContent: 'space-around' }}
       >
         <Button
           autoFocus
-          onClick={openBoxDialog}
+          onClick={handleClose}
           color="primary"
           variant="contained"
         >
-          Caixa
+          Pokémon
         </Button>
         <Button onClick={handleClose} color="primary" variant="contained">
           Mover
