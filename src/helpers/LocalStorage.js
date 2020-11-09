@@ -25,16 +25,15 @@ export function savePokemon({ pokemon, level }) {
 }
 
 export function getBox() {
-  // const pokemonData = localStorage.getItem(key);
-  // const { pokemonBox } = JSON.parse(pokemonData) || {};
-  // return pokemonBox || [];
-  // const { pokemonBox } = getData();
-  return getData().pokemonBox;
+  const { pokemonBox, pokemonParty } = getData();
+
+  return pokemonBox.map((pkmn) => ({
+    ...pkmn,
+    badge: pokemonParty.indexOf(pkmn.id) + 1,
+  }));
 }
 
 export function getParty() {
   const { pokemonBox, pokemonParty } = getData();
   return pokemonParty.map((id) => pokemonBox.find((pkmn) => pkmn.id === id));
-  // const pokemonData = localStorage.getItem(key);
-  // return pokemonData ? JSON.parse(pokemonData) : [];
 }

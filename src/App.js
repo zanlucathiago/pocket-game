@@ -1,6 +1,4 @@
-// import logo from './logo.svg';
 import { Button, ButtonGroup, Snackbar } from '@material-ui/core';
-// import { Button, ButtonGroup } from '@material-ui/core';
 import React from 'react';
 import './App.css';
 import arena from './images/backgrounds/arena.jpg';
@@ -13,13 +11,13 @@ import glacier from './images/backgrounds/glacier.jpg';
 import volcano from './images/backgrounds/volcano.jpg';
 import locations from './static/locations';
 import MuiAlert from '@material-ui/lab/Alert';
-// import pokemons from './static/pokemons';
 import methods from './static/methods';
 import areas from './static/areas';
 import BattleDialog from './components/BattleDialog';
 import MenuSpeedDial from './components/MenuSpeedDial';
 import PartyDialog from './components/PartyDialog';
 import BoxDialog from './components/BoxDialog';
+import MapSpeedDial from './components/MapSpeedDial';
 
 const images = {
   arena,
@@ -75,6 +73,12 @@ class App extends React.Component {
         )}
         <MenuSpeedDial
           openPartyDialog={() => this.setState({ partyDialog: true })}
+        />
+        <MapSpeedDial
+          key={location}
+          openPartyDialog={() => this.setState({ partyDialog: true })}
+          location={location}
+          explore={(exit) => this.setState({ location: exit })}
         />
         {found && (
           <BattleDialog
@@ -138,17 +142,6 @@ class App extends React.Component {
               ))}
             </ButtonGroup>
           ))}
-          <ButtonGroup variant="contained" color="primary">
-            {(locations[location].exits || []).map((exit) => (
-              <Button
-                onClick={() => {
-                  this.setState({ location: exit });
-                }}
-              >
-                {locations[exit].label}
-              </Button>
-            ))}
-          </ButtonGroup>
         </div>
       </div>
     );

@@ -2,12 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import pokemons from '../static/pokemons';
+import { Badge } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -18,11 +16,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PokemonCard({ pokemon }) {
+export default function PokemonCard({ badge, pokemon }) {
   const classes = useStyles();
 
-  return (
-    <div style={{ padding: 8 }}>
+  const renderCard = () => {
+    return (
       <Card
         className={classes.root}
         style={{
@@ -37,18 +35,28 @@ export default function PokemonCard({ pokemon }) {
             className={classes.media}
             image={`/pokemons/${pokemons[pokemon].image}.gif`}
             style={{ backgroundSize: 'contain', flex: 1, height: 113 }}
-            // title="Contemplative Reptile"
           />
           <Typography
             variant="overline"
             display="block"
-            // gutterBottom
             style={{ position: 'absolute', bottom: 0 }}
           >
             {pokemons[pokemon].name}
           </Typography>
         </CardActionArea>
       </Card>
+    );
+  };
+
+  return (
+    <div style={{ padding: 8 }}>
+      {badge ? (
+        <Badge badgeContent={badge} color="primary">
+          {renderCard()}
+        </Badge>
+      ) : (
+        renderCard()
+      )}
     </div>
   );
 }

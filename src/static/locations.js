@@ -1,3 +1,10 @@
+const exit = (direction, destination) => {
+  return {
+    direction,
+    destination,
+  };
+};
+
 const spawn = (pokemon, rate, minLevel, maxLevel) => {
   return {
     pokemon,
@@ -244,7 +251,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['viridianCity', 'palletTown'],
+    exits: [exit('north', 'viridianCity'), exit('south', 'palletTown')],
     label: 'Rota 1',
   },
   route2: {
@@ -283,7 +290,12 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['pewterCity', 'viridianCity', 'viridianForest', 'diglettsCave'],
+    exits: [
+      exit('north', 'pewterCity'),
+      exit('south', 'viridianCity'),
+      exit('accessTo', 'viridianForest'),
+      exit('accessTo', 'diglettsCave'),
+    ],
     label: 'Rota 2',
   },
   route3: {
@@ -304,7 +316,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route4', 'pewterCity'],
+    exits: [exit('north', 'route4'), exit('west', 'pewterCity')],
     label: 'Rota 3',
   },
   route4: {
@@ -328,7 +340,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route3', 'ceruleanCity', 'mtMoon'],
+    exits: [
+      exit('south', 'route3'),
+      exit('east', 'ceruleanCity'),
+      exit('accessTo', 'mtMoon'),
+    ],
     label: 'Rota 4',
   },
   route5: {
@@ -352,7 +368,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['ceruleanCity', 'saffronCity', 'undergroundPath56'],
+    exits: [
+      exit('north', 'ceruleanCity'),
+      exit('south', 'saffronCity'),
+      exit('accessTo', 'undergroundPath56'),
+    ],
     label: 'Rota 5',
   },
   route6: {
@@ -384,7 +404,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['saffronCity', 'vermilionCity', 'undergroundPath56'],
+    exits: [
+      exit('north', 'saffronCity'),
+      exit('south', 'vermilionCity'),
+      exit('accessTo', 'undergroundPath56'),
+    ],
     label: 'Rota 6',
   },
   route7: {
@@ -394,7 +418,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['saffronCity', 'celadonCity', 'undergroundPath78'],
+    exits: [
+      exit('east', 'saffronCity'),
+      exit('west', 'celadonCity'),
+      exit('accessTo', 'undergroundPath78'),
+    ],
     label: 'Rota 7',
   },
   route8: {
@@ -404,7 +432,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['lavenderTown', 'saffronCity', 'undergroundPath78'],
+    exits: [
+      exit('east', 'lavenderTown'),
+      exit('west', 'saffronCity'),
+      exit('accessTo', 'undergroundPath78'),
+    ],
     label: 'Rota 8',
   },
   route9: {
@@ -429,7 +461,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route10', 'ceruleanCity'],
+    exits: [exit('east', 'route10'), exit('west', 'ceruleanCity')],
     label: 'Rota 9',
   },
   route10: {
@@ -465,7 +497,12 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['lavenderTown', 'route9', 'rockTunnel', 'powerPlant'],
+    exits: [
+      exit('south', 'lavenderTown'),
+      exit('west', 'route9'),
+      exit('accessTo', 'rockTunnel'),
+      exit('accessTo', 'powerPlant'),
+    ],
     label: 'Rota 10',
   },
   route11: {
@@ -489,7 +526,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route12', 'vermilionCity', 'diglettsCave'],
+    exits: [
+      exit('east', 'route12'),
+      exit('west', 'vermilionCity'),
+      exit('accessTo', 'diglettsCave'),
+    ],
     label: 'Rota 11',
   },
   route12: {
@@ -514,7 +555,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['lavenderTown', 'route13', 'route11'],
+    exits: [
+      exit('north', 'lavenderTown'),
+      exit('south', 'route13'),
+      exit('west', 'route11'),
+    ],
     label: 'Rota 12',
   },
   route13: {
@@ -547,7 +592,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route12', 'route14'],
+    exits: [exit('north', 'route12'), exit('west', 'route14')],
     label: 'Rota 13',
   },
   route14: {
@@ -557,7 +602,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route13', 'route15'],
+    exits: [exit('east', 'route13'), exit('west', 'route15')],
     label: 'Rota 14',
   },
   route15: {
@@ -567,7 +612,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route14', 'fuchsiaCity'],
+    exits: [exit('east', 'route14'), exit('west', 'fuchsiaCity')],
     label: 'Rota 15',
   },
   route16: {
@@ -590,7 +635,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route17', 'celadonCity'],
+    exits: [exit('south', 'route17'), exit('east', 'celadonCity')],
     label: 'Rota 16',
   },
   route17: {
@@ -617,7 +662,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route16', 'route18'],
+    exits: [exit('north', 'route16'), exit('south', 'route18')],
     label: 'Rota 17',
   },
   route18: {
@@ -650,7 +695,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route17', 'fuchsiaCity'],
+    exits: [exit('north', 'route17'), exit('east', 'fuchsiaCity')],
     label: 'Rota 18',
   },
   route19: {
@@ -660,7 +705,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['fuchsiaCity', 'route20'],
+    exits: [exit('north', 'fuchsiaCity'), exit('west', 'route20')],
     label: 'Rota 19',
   },
   route20: {
@@ -697,7 +742,11 @@ const locations = {
       },
     ],
     background: 'coast',
-    exits: ['route19', 'cinnabarIsland', 'seafoamIslands'],
+    exits: [
+      exit('east', 'route19'),
+      exit('west', 'cinnabarIsland'),
+      exit('accessTo', 'seafoamIslands'),
+    ],
     label: 'Rota 20',
   },
   route21: {
@@ -723,7 +772,7 @@ const locations = {
       },
     ],
     background: 'coast',
-    exits: ['palletTown', 'cinnabarIsland'],
+    exits: [exit('north', 'palletTown'), exit('south', 'cinnabarIsland')],
     label: 'Rota 21',
   },
   route22: {
@@ -752,7 +801,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route23', 'viridianCity'],
+    exits: [exit('north', 'route23'), exit('east', 'viridianCity')],
     label: 'Rota 22',
   },
   route23: {
@@ -787,7 +836,11 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['indigoPlateau', 'route22', 'victoryRoad'],
+    exits: [
+      exit('north', 'indigoPlateau'),
+      exit('south', 'route22'),
+      exit('west', 'victoryRoad'),
+    ],
     label: 'Rota 23',
   },
   route24: {
@@ -809,7 +862,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['ceruleanCity', 'route25'],
+    exits: [exit('south', 'ceruleanCity'), exit('east', 'route25')],
     label: 'Rota 24',
   },
   route25: {
@@ -838,7 +891,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route24'],
+    exits: [exit('west', 'route24')],
     label: 'Rota 25',
   },
   ceruleanCave: {
@@ -872,25 +925,39 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['ceruleanCity'],
+    exits: [exit('south', 'ceruleanCity')],
     label: 'Caverna Cerúleo',
   },
   ceruleanCity: {
     areas: [],
     background: 'city',
-    exits: ['route24', 'route5', 'route9', 'route4', 'ceruleanCave'],
+    exits: [
+      exit('north', 'route24'),
+      exit('south', 'route5'),
+      exit('east', 'route9'),
+      exit('west', 'route4'),
+      exit('accessTo', 'ceruleanCave'),
+    ],
     label: 'Cidade Cerúleo',
   },
   cinnabarIsland: {
     areas: [],
     background: 'city',
-    exits: ['route21', 'route20', 'pokemonMansion'],
+    exits: [
+      exit('south', 'route21'),
+      exit('east', 'route20'),
+      exit('accessTo', 'pokemonMansion'),
+    ],
     label: 'Ilha Cinábrio',
   },
   celadonCity: {
     areas: [],
     background: 'city',
-    exits: ['route7', 'route16', 'rocketHideout'],
+    exits: [
+      exit('east', 'route7'),
+      exit('west', 'route16'),
+      exit('accessTo', 'rocketHideout'),
+    ],
     label: 'Cidade Celadon',
   },
   diglettsCave: {
@@ -909,25 +976,35 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route2', 'route11'],
+    exits: [exit('north', 'route2'), exit('south', 'route11')],
     label: `Caverna Digglett's`,
   },
   fuchsiaCity: {
     areas: [],
     background: 'forest',
-    exits: ['route19', 'route15', 'route18'],
+    exits: [
+      exit('south', 'route19'),
+      exit('east', 'route15'),
+      exit('west', 'route18'),
+      // exit('accessTo', 'safariZone'),
+    ],
     label: 'Cidade Fúcsia',
   },
   indigoPlateau: {
     areas: [],
     background: 'forest',
-    exits: ['route23'],
+    exits: [exit('south', 'route23')],
     label: 'Planalto Índigo',
   },
   lavenderTown: {
     areas: [],
     background: 'city',
-    exits: ['route10', 'route12', 'route8', 'pokemonTower'],
+    exits: [
+      exit('north', 'route10'),
+      exit('south', 'route12'),
+      exit('west', 'route8'),
+      exit('accessTo', 'pokemonTower'),
+    ],
     label: 'Cidade Lavanda',
   },
   mtMoon: {
@@ -958,19 +1035,19 @@ const locations = {
       },
     ],
     background: 'city',
-    exits: ['route4', 'route4'],
+    exits: [exit('east', 'route4'), exit('west', 'route4')],
     label: 'Montanha Lua',
   },
   palletTown: {
     areas: [],
     background: 'city',
-    exits: ['route1', 'route21'],
+    exits: [exit('north', 'route1'), exit('south', 'route21')],
     label: 'Cidade Palete',
   },
   pewterCity: {
     areas: [],
     background: 'city',
-    exits: ['route2', 'route3'],
+    exits: [exit('south', 'route2'), exit('east', 'route3')],
     label: 'Cidade Peltre',
   },
   pokemonMansion: {
@@ -1005,7 +1082,7 @@ const locations = {
       },
     ],
     background: 'arena',
-    exits: ['cinnabarIsland'],
+    exits: [exit('south', 'cinnabarIsland')],
     label: 'Mansão Pokémon',
   },
   pokemonTower: {
@@ -1050,7 +1127,7 @@ const locations = {
       },
     ],
     background: 'city',
-    exits: ['lavenderTown'],
+    exits: [exit('south', 'lavenderTown')],
     label: 'Torre Pokémon',
   },
   powerPlant: {
@@ -1073,7 +1150,7 @@ const locations = {
       },
     ],
     background: 'city',
-    exits: ['route10', 'route10'],
+    exits: [exit('south', 'route10'), exit('east', 'route10')],
     label: 'Usina Elétrica',
   },
   rockTunnel: {
@@ -1088,19 +1165,25 @@ const locations = {
       },
     ],
     background: 'city',
-    exits: ['route10', 'route10'],
+    exits: [exit('north', 'route10'), exit('south', 'route10')],
     label: 'Túnel de Pedra',
   },
   rocketHideout: {
     areas: [],
     background: 'city',
-    exits: ['celadonCity'],
+    exits: [exit('south', 'celadonCity')],
     label: 'Esconderijo Foguete',
   },
   saffronCity: {
     areas: [],
     background: 'city',
-    exits: ['route5', 'route6', 'route8', 'route7', 'silphCo'],
+    exits: [
+      exit('north', 'route5'),
+      exit('south', 'route6'),
+      exit('east', 'route8'),
+      exit('west', 'route7'),
+      exit('accessTo', 'silphCo'),
+    ],
     label: 'Cidade Açafrão',
   },
   seafoamIslands: {
@@ -1127,37 +1210,41 @@ const locations = {
       },
     ],
     background: 'glacier',
-    exits: ['route20', 'route20'],
+    exits: [exit('east', 'route20'), exit('west', 'route20')],
     label: 'Ilhas Espumas do Mar',
   },
   silphCo: {
     areas: [],
     background: 'city',
-    exits: ['saffronCity'],
+    exits: [exit('south', 'saffronCity')],
     label: 'Companhia Silph',
   },
   ssAnne: {
     areas: [],
     background: 'city',
-    exits: ['vermilionCity'],
+    exits: [exit('south', 'vermilionCity')],
     label: 'SS Anne',
   },
   undergroundPath56: {
     areas: [],
     background: 'city',
-    exits: ['route5', 'route6'],
+    exits: [exit('north', 'route5'), exit('south', 'route6')],
     label: 'Caminho Subterrâneo 5-6',
   },
   undergroundPath78: {
     areas: [],
     background: 'city',
-    exits: ['route7', 'route8'],
+    exits: [exit('east', 'route7'), exit('west', 'route8')],
     label: 'Caminho Subterrâneo 7-8',
   },
   vermilionCity: {
     areas: [],
     background: 'city',
-    exits: ['route6', 'ssAnne', 'route11'],
+    exits: [
+      exit('north', 'route6'),
+      exit('south', 'ssAnne'),
+      exit('east', 'route11'),
+    ],
     label: 'Cidade Vermelhão',
   },
   victoryRoad: {
@@ -1176,13 +1263,17 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route23', 'route23'],
+    exits: [exit('north', 'route23'), exit('south', 'route23')],
     label: 'Estrada da Vitória',
   },
   viridianCity: {
     areas: [],
     background: 'city',
-    exits: ['route2', 'route1', 'route22'],
+    exits: [
+      exit('north', 'route2'),
+      exit('south', 'route1'),
+      exit('west', 'route22'),
+    ],
     label: 'Cidade Viridiana',
   },
   viridianForest: {
@@ -1206,7 +1297,7 @@ const locations = {
       },
     ],
     background: 'forest',
-    exits: ['route2', 'route2'],
+    exits: [exit('north', 'route2'), exit('south', 'route2')],
     label: 'Floresta Viridiana',
   },
 };

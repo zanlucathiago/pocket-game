@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import PokemonCard from './PokemonCard';
-import { getBox, getParty } from '../helpers/LocalStorage';
+import { getBox } from '../helpers/LocalStorage';
 
 export default function BoxDialog({ handleClose, level, message, pokemon }) {
   return (
@@ -15,30 +15,18 @@ export default function BoxDialog({ handleClose, level, message, pokemon }) {
       onClose={handleClose}
       PaperProps={{
         elevation: 0,
-        // style: { backgroundColor: 'transparent' },
       }}
     >
       <DialogContent
         style={{
-          // display: 'flex',
-          // flexDirection: 'column',
-          // justifyContent: 'center',
           display: 'flex',
           justifyContent: 'space-around',
           flexWrap: 'wrap',
         }}
       >
-        {/* <div
-          style={{
-            // display: 'flex',
-            // justifyContent: 'space-around',
-            // flexWrap: 'wrap',
-          }}
-        > */}
-        {getBox().map(({ pokemon, level }) => (
-          <PokemonCard pokemon={pokemon} level={level} />
+        {getBox().map(({ badge, pokemon, level }) => (
+          <PokemonCard badge={badge} pokemon={pokemon} level={level} />
         ))}
-        {/* </div> */}
       </DialogContent>
       <DialogActions
         style={{ display: 'flex', justifyContent: 'space-around' }}

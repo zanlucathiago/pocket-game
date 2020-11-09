@@ -1,13 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import ExploreIcon from '@material-ui/icons/Explore';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import SaveIcon from '@material-ui/icons/Save';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import LanguageIcon from '@material-ui/icons/Language';
+import directions from '../static/directions';
+import locations from '../static/locations';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuSpeedDial({ openPartyDialog }) {
+export default function MapSpeedDial({ location, explore }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -49,36 +46,27 @@ export default function MenuSpeedDial({ openPartyDialog }) {
     }
   };
 
-  const actions = [
-    { icon: <SaveIcon />, name: 'Salvamento' },
-    { icon: <LanguageIcon />, name: 'Conexão' },
-    { icon: <GroupWorkIcon />, name: 'Time', onClick: openPartyDialog },
-    { icon: <LocalMallIcon />, name: 'Mochila' },
-    { icon: <LibraryBooksIcon />, name: 'Enciclopédia' },
-  ];
-
   return (
     <SpeedDial
       ariaLabel="SpeedDial example"
       className={classes.speedDial}
-      // color="secondary"
-      FabProps={{ color: 'secondary' }}
       hidden={false}
-      icon={<SpeedDialIcon />}
+      icon={<ExploreIcon />}
       onClose={handleClose}
       onOpen={handleOpen}
       open={open}
-      direction={'up'}
+      direction={'down'}
     >
-      {actions.map((action) => (
+      {locations[location].exits.map((exit) => (
         <SpeedDialAction
-          key={action.name}
-          icon={action.icon}
+          key={exit.destination}
+          icon={directions[exit.direction].icon}
+          style={{ whiteSpace: 'nowrap' }}
           tooltipOpen
-          tooltipTitle={action.name}
+          tooltipPlacement="right"
+          tooltipTitle={locations[exit.destination].label}
           onClick={() => {
-            action.onClick();
-            handleClose();
+            explore(exit.destination);
           }}
         />
       ))}

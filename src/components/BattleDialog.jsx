@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import pokemons from '../static/pokemons';
 import { savePokemon } from '../helpers/LocalStorage';
@@ -15,17 +14,34 @@ export default function BattleDialog({ handleClose, level, message, pokemon }) {
       fullScreen
       open
       onClose={handleClose}
-      // aria-labelledby="alert-dialog-title"
-      // aria-describedby="alert-dialog-description"
       PaperProps={{
         elevation: 0,
-        // style: { backgroundColor: 'transparent', margin: 0 },
         style: { backgroundColor: 'transparent' },
       }}
     >
-      {/**nome, genero, level, cp */}
-      <DialogTitle id="alert-dialog-title">
-        Um {pokemons[pokemon].name} apareceu!
+      <DialogTitle>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            backgroundColor: '#FFF',
+            opacity: 0.875,
+          }}
+        >
+          <div style={{ flex: 1, marginLeft: 8 }}>{pokemons[pokemon].name}</div>
+          <div style={{ marginRight: 8 }}>Lv. {level}</div>
+          {true ? (
+            <div style={{ width: 31 }} />
+          ) : (
+            <img
+              src="/pokeball.png"
+              style={{
+                height: 31,
+                width: 31,
+              }}
+            ></img>
+          )}
+        </div>
       </DialogTitle>
       <DialogContent style={{ display: 'flex', justifyContent: 'center' }}>
         <div
@@ -39,17 +55,8 @@ export default function BattleDialog({ handleClose, level, message, pokemon }) {
             alt={pokemons[pokemon].name}
             src={`/pokemons/${pokemons[pokemon].image}.gif`}
             style={{
-              // maxWidth: '160px',
-              // maxHeight: '95px',
-              // width: '100%',
-              // height: '50%',
-              // objectFit: 'contain',
               transform: 'scale(0.375)',
             }}
-            // src={`/pokemon/${String(pokemons[pokemon].number).padStart(
-            //   3,
-            //   '0'
-            // )}-${pokemon}.gif`}
           ></img>
         </div>
       </DialogContent>
@@ -60,17 +67,11 @@ export default function BattleDialog({ handleClose, level, message, pokemon }) {
           variant="contained"
           onClick={() => {
             let random = Math.random();
-            // let message;
             const { capture, flee } = pokemons[pokemon].rate;
-            // method.spawns.some(({ level, pokemon, rate }) => {
-            if (random < capture) {
-              // const [min, max] = level;
-              savePokemon({ level, pokemon });
 
+            if (random < capture) {
+              savePokemon({ level, pokemon });
               message('O pokémon foi capturado!');
-              // message = `Um ${pokemons[pokemon].name} Lv. ${
-              //   min + Math.floor(random / (rate / (max - min + 1)))
-              // } selvagem apareceu!`;
               handleClose();
             } else {
               let random2 = Math.random();
