@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import pokemons from '../static/pokemons';
 
 const key = '27988d30-a0b4-4b76-92b5-56694a4500c0';
 
@@ -31,6 +32,42 @@ export function getBox() {
     ...pkmn,
     badge: pokemonParty.indexOf(pkmn.id) + 1,
   }));
+}
+
+export function getIndex() {
+  const { pokemonBox } = getData();
+  const helper = {};
+  let idx = 0;
+
+  return Object.keys(pokemons).map((pkmn) => {
+    const { image, number } = pokemons[pkmn];
+
+    const uncaught = {
+      pokemon: pkmn,
+      number,
+    };
+
+    const caught = {
+      ...uncaught,
+      image,
+    };
+
+    if (helper[pkmn]) {
+      return caught;
+    }
+
+    while (pokemonBox.length > idx) {
+      const { pokemon } = pokemonBox[idx];
+      if (pokemon === pkmn) {
+        return caught;
+      }
+
+      helper[pokemon] = true;
+      idx += 1;
+    }
+
+    return uncaught;
+  });
 }
 
 export function getParty() {
