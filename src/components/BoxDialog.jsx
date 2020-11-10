@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import PokemonCard from './PokemonCard';
 import { getBox } from '../helpers/LocalStorage';
 
-export default function BoxDialog({ handleClose, level, message, pokemon }) {
+export default function BoxDialog({ handleClose }) {
   return (
     <Dialog
       disableBackdropClick

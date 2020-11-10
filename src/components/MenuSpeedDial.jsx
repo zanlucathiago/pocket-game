@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuSpeedDial({ openPartyDialog }) {
+export default function MenuSpeedDial({ openIndexDialog, openPartyDialog }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -54,14 +54,17 @@ export default function MenuSpeedDial({ openPartyDialog }) {
     { icon: <LanguageIcon />, name: 'Conexão' },
     { icon: <GroupWorkIcon />, name: 'Time', onClick: openPartyDialog },
     { icon: <LocalMallIcon />, name: 'Mochila' },
-    { icon: <LibraryBooksIcon />, name: 'Enciclopédia' },
+    {
+      icon: <LibraryBooksIcon />,
+      name: 'Enciclopédia',
+      onClick: openIndexDialog,
+    },
   ];
 
   return (
     <SpeedDial
       ariaLabel="SpeedDial example"
       className={classes.speedDial}
-      // color="secondary"
       FabProps={{ color: 'secondary' }}
       hidden={false}
       icon={<SpeedDialIcon />}

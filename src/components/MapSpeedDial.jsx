@@ -55,7 +55,8 @@ export default function MapSpeedDial({ location, explore }) {
       onClose={handleClose}
       onOpen={handleOpen}
       open={open}
-      direction={'down'}
+      direction={'up'}
+      style={{ left: 16, right: 'auto' }}
     >
       {locations[location].exits.map((exit) => (
         <SpeedDialAction

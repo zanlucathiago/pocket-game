@@ -18,6 +18,7 @@ import MenuSpeedDial from './components/MenuSpeedDial';
 import PartyDialog from './components/PartyDialog';
 import BoxDialog from './components/BoxDialog';
 import MapSpeedDial from './components/MapSpeedDial';
+import IndexDialog from './components/IndexDialog';
 
 const images = {
   arena,
@@ -48,7 +49,14 @@ class App extends React.Component {
   };
 
   render() {
-    const { boxDialog, location, found, message, partyDialog } = this.state;
+    const {
+      boxDialog,
+      indexDialog,
+      location,
+      found,
+      message,
+      partyDialog,
+    } = this.state;
 
     return (
       <div
@@ -60,6 +68,11 @@ class App extends React.Component {
           height: '100%',
         }}
       >
+        {indexDialog && (
+          <IndexDialog
+            handleClose={() => this.setState({ indexDialog: null })}
+          />
+        )}
         {boxDialog && (
           <BoxDialog handleClose={() => this.setState({ boxDialog: null })} />
         )}
@@ -72,6 +85,7 @@ class App extends React.Component {
           />
         )}
         <MenuSpeedDial
+          openIndexDialog={() => this.setState({ indexDialog: true })}
           openPartyDialog={() => this.setState({ partyDialog: true })}
         />
         <MapSpeedDial
@@ -122,9 +136,6 @@ class App extends React.Component {
                           level:
                             min + Math.floor(random / (rate / (max - min + 1))),
                         };
-                        // message = `Um ${pokemons[pokemon].name} Lv. ${
-                        //   min + Math.floor(random / (rate / (max - min + 1)))
-                        // } selvagem apareceu!`;
 
                         return true;
                       } else {
