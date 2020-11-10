@@ -25,7 +25,12 @@ export default function BoxDialog({ handleClose }) {
         }}
       >
         {getBox().map(({ badge, pokemon, level }) => (
-          <PokemonCard badge={badge} pokemon={pokemon} level={level} />
+          <PokemonCard
+            badge={badge}
+            badgeColor="primary"
+            pokemon={pokemon}
+            level={level}
+          />
         ))}
       </DialogContent>
       <DialogActions

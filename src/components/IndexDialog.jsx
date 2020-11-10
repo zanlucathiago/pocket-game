@@ -37,9 +37,25 @@ export default function IndexDialog({ handleClose }) {
           flexWrap: 'wrap',
         }}
       >
-        {getIndex().map(({ image, pokemon, number }) =>
+        {getIndex().map(({ image, pokemon, number, filter }) =>
           image ? (
-            <PokemonCard pokemon={pokemon} />
+            <PokemonCard
+              pokemon={pokemon}
+              filter={!!filter}
+              badge={
+                !filter && (
+                  <img
+                    alt="pokeball"
+                    src="/pokeball.png"
+                    style={{
+                      height: 31,
+                      width: 31,
+                    }}
+                  ></img>
+                )
+              }
+              badgeColor=""
+            />
           ) : (
             <div style={{ padding: 8 }}>
               <Card

@@ -84,16 +84,6 @@ class App extends React.Component {
             }
           />
         )}
-        <MenuSpeedDial
-          openIndexDialog={() => this.setState({ indexDialog: true })}
-          openPartyDialog={() => this.setState({ partyDialog: true })}
-        />
-        <MapSpeedDial
-          key={location}
-          openPartyDialog={() => this.setState({ partyDialog: true })}
-          location={location}
-          explore={(exit) => this.setState({ location: exit })}
-        />
         {found && (
           <BattleDialog
             message={(value) => this.setState({ message: value })}
@@ -109,51 +99,64 @@ class App extends React.Component {
             </Alert>
           </Snackbar>
         )}
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            height: '100%',
-            justifyContent: 'space-evenly',
-          }}
-        >
-          {(locations[location].areas || []).map((area) => (
-            <ButtonGroup variant="contained">
-              {area.area && <Button>{areas[area.area]}</Button>}
-              {area.methods.map((method) => (
-                <Button
-                  onClick={() => {
-                    let random = Math.random();
-                    let message;
+        {found ? null : (
+          <div
+            style={{
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <MenuSpeedDial
+              openIndexDialog={() => this.setState({ indexDialog: true })}
+              openPartyDialog={() => this.setState({ partyDialog: true })}
+            />
+            <MapSpeedDial
+              key={location}
+              openPartyDialog={() => this.setState({ partyDialog: true })}
+              location={location}
+              explore={(exit) => this.setState({ location: exit })}
+            />
+            {(locations[location].areas || []).map((area) => (
+              <ButtonGroup variant="contained">
+                {area.area && <Button>{areas[area.area]}</Button>}
+                {area.methods.map((method) => (
+                  <Button
+                    onClick={() => {
+                      let random = Math.random();
+                      let message;
 
-                    method.spawns.some(({ level, pokemon, rate }) => {
-                      if (random < rate) {
-                        const [min, max] = level;
+                      method.spawns.some(({ level, pokemon, rate }) => {
+                        if (random < rate) {
+                          const [min, max] = level;
 
-                        message = {
-                          pokemon,
-                          level:
-                            min + Math.floor(random / (rate / (max - min + 1))),
-                        };
+                          message = {
+                            pokemon,
+                            level:
+                              min +
+                              Math.floor(random / (rate / (max - min + 1))),
+                          };
 
-                        return true;
-                      } else {
-                        random -= rate;
-                        return false;
-                      }
-                    });
+                          return true;
+                        } else {
+                          random -= rate;
+                          return false;
+                        }
+                      });
 
-                    this.setState({ found: message });
-                  }}
-                  color="secondary"
-                >
-                  {methods[method.method]}
-                </Button>
-              ))}
-            </ButtonGroup>
-          ))}
-        </div>
+                      this.setState({ found: message });
+                    }}
+                    color="secondary"
+                  >
+                    {methods[method.method]}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

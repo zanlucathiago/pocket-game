@@ -8,7 +8,8 @@ function getData() {
   const parsedData = pokemonData ? JSON.parse(pokemonData) : {};
   const pokemonBox = parsedData.pokemonBox || [];
   const pokemonParty = parsedData.pokemonParty || [];
-  return { pokemonBox, pokemonParty };
+  const pokemonSeen = parsedData.pokemonSeen || [];
+  return { pokemonBox, pokemonParty, pokemonSeen };
 }
 
 function setData(data) {
@@ -16,13 +17,26 @@ function setData(data) {
 }
 
 export function savePokemon({ pokemon, level }) {
-  const { pokemonBox, pokemonParty } = getData();
+  const { pokemonBox, pokemonParty, pokemonSeen } = getData();
   const id = v4();
 
   setData({
     pokemonBox: [...pokemonBox, { pokemon, level, id }],
     pokemonParty: [...pokemonParty, ...(pokemonParty.length < 6 ? [id] : [])],
+    pokemonSeen,
   });
+}
+
+export function seenPokemon(pokemon) {
+  const { pokemonBox, pokemonParty, pokemonSeen } = getData();
+
+  setData({
+    pokemonBox,
+    pokemonParty,
+    pokemonSeen: { ...pokemonSeen, [pokemon]: true },
+  });
+
+  return pokemonBox.some((pkmn) => pkmn.pokemon === pokemon);
 }
 
 export function getBox() {
@@ -34,22 +48,32 @@ export function getBox() {
   }));
 }
 
-export function getIndex() {
+export function hasPokemon(pokemon) {
   const { pokemonBox } = getData();
+  return pokemonBox.some((pkmn) => pkmn.pokemon === pokemon);
+}
+
+export function getIndex() {
+  const { pokemonBox, pokemonSeen } = getData();
   const helper = {};
   let idx = 0;
 
   return Object.keys(pokemons).map((pkmn) => {
     const { image, number } = pokemons[pkmn];
 
-    const uncaught = {
+    const unknown = {
       pokemon: pkmn,
       number,
     };
 
     const caught = {
-      ...uncaught,
+      ...unknown,
       image,
+    };
+
+    const seen = {
+      ...caught,
+      filter: true,
     };
 
     if (helper[pkmn]) {
@@ -66,7 +90,7 @@ export function getIndex() {
       idx += 1;
     }
 
-    return uncaught;
+    return pokemonSeen[pkmn] ? seen : unknown;
   });
 }
 

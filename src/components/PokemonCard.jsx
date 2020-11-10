@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PokemonCard({ badge, pokemon }) {
+export default function PokemonCard({ badge, pokemon, filter, badgeColor }) {
   const classes = useStyles();
 
   const renderCard = () => {
@@ -34,7 +34,12 @@ export default function PokemonCard({ badge, pokemon }) {
           <CardMedia
             className={classes.media}
             image={`/pokemons/${pokemons[pokemon].image}.gif`}
-            style={{ backgroundSize: 'contain', flex: 1, height: 113 }}
+            style={{
+              backgroundSize: 'contain',
+              flex: 1,
+              height: 113,
+              filter: `grayscale(${filter ? 1 : 0})`,
+            }}
           />
           <Typography
             variant="overline"
@@ -51,7 +56,7 @@ export default function PokemonCard({ badge, pokemon }) {
   return (
     <div style={{ padding: 8 }}>
       {badge ? (
-        <Badge badgeContent={badge} color="primary">
+        <Badge badgeContent={badge} color={badgeColor}>
           {renderCard()}
         </Badge>
       ) : (

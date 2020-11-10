@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import pokemons from '../static/pokemons';
-import { savePokemon } from '../helpers/LocalStorage';
+import { savePokemon, seenPokemon } from '../helpers/LocalStorage';
 
 export default function BattleDialog({ handleClose, level, message, pokemon }) {
   return (
@@ -30,10 +30,11 @@ export default function BattleDialog({ handleClose, level, message, pokemon }) {
         >
           <div style={{ flex: 1, marginLeft: 8 }}>{pokemons[pokemon].name}</div>
           <div style={{ marginRight: 8 }}>Lv. {level}</div>
-          {true ? (
+          {!seenPokemon(pokemon) ? (
             <div style={{ width: 31 }} />
           ) : (
             <img
+              alt="pokeball"
               src="/pokeball.png"
               style={{
                 height: 31,
