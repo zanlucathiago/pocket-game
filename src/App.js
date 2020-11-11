@@ -34,7 +34,6 @@ const images = {
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-// const backgroundImage = `url(${background})`;
 
 class App extends React.Component {
   state = {
@@ -122,13 +121,14 @@ class App extends React.Component {
             {(locations[location].areas || []).map((area) => (
               <ButtonGroup variant="contained">
                 {area.area && <Button>{areas[area.area]}</Button>}
-                {area.methods.map((method) => (
+                {/* {area.methods.map((method) => ( */}
+                {area.methods.ground && (
                   <Button
                     onClick={() => {
                       let random = Math.random();
                       let message;
 
-                      method.spawns.some(({ level, pokemon, rate }) => {
+                      area.methods.ground.some(({ level, pokemon, rate }) => {
                         if (random < rate) {
                           const [min, max] = level;
 
@@ -150,9 +150,9 @@ class App extends React.Component {
                     }}
                     color="secondary"
                   >
-                    {methods[method.method]}
+                    {methods.ground}
                   </Button>
-                ))}
+                )}
               </ButtonGroup>
             ))}
           </div>
